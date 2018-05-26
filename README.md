@@ -1,3 +1,4 @@
+# Flask LXC API Blueprint 
 
 <br>
 
@@ -22,7 +23,7 @@ EOF'
 sudo service lxc-net restart
 ```
 
-<br>
+<br><br>
 
 ## API
 
@@ -41,7 +42,7 @@ http://localhost:5000/lxc/create/<CONTAINER> \
 }'
 ```
 
-- example:
+example:
 
 ```
 curl -X POST \
@@ -56,32 +57,40 @@ http://localhost:5000/lxc/create/debian1 \
 }'
 ```
 
+<br>
+
 #### Start LXC Container
 
 `curl http://localhost:5000/lxc/start/<CONTAINER_NAME>`
 
-- example
+example:
 
 `curl http://localhost:5000/lxc/start/debian1`
+
+<br>
 
 #### Stop LXC Container
 
 `curl http://localhost:5000/lxc/stop/<CONTAINER_NAME>`
 
-- example
+example
 
 `curl http://localhost:5000/lxc/stop/debian1`
+
+<br>
 
 #### Destroy LXC Container
 
 `curl http://localhost:5000/lxc/destroy/<CONTAINER_NAME>`
 
-- example
+example
 
 `curl http://localhost:5000/lxc/destroy/debian1`
 
+<br>
+<br>
 
-### Reference
+## Reference
 
 - Instructions to setup LXC and LXC Networking for Debian Jessie
 
