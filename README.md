@@ -92,6 +92,6 @@ example
 
 ## Reference
 
-- Instructions to setup LXC and LXC Networking for Debian Jessie
+Instructions to setup LXC and LXC Networking for Debian Jessie
 
-https://wiki.debian.org/LXC
+- https://wiki.debian.org/LXC
