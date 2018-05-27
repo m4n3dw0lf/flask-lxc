@@ -114,8 +114,8 @@ curl -X POST \
 http://localhost:5000/lxc/expose/<CONTAINER_NAME> \
 -H "Content-Type:application/json" \
 -d '{
-  "dst":"<CONTAINER_IP>",
-  "port":"<PORT_TO_EXPOSE>",
+  "sport":"<PORT_TO_EXPOSE>",
+  "dport":"<CONTAINER_PORT>",
   "protocol":"<PROTOCOL>"
 }'
 ```
@@ -127,9 +127,42 @@ curl -X POST \
 http://localhost:5000/lxc/expose/debian1 \
 -H "Content-Type:application/json" \
 -d '{
-  "dst":"10.0.3.216",
-  "port":"80",
+  "sport":"80",
+  "dport":"80",
   "protocol":"tcp"
+}'
+```
+
+### Get config keys
+
+syntax:
+
+`curl http://localhost:5000/lxc/config/<CONTAINER>`
+
+example:
+
+`curl http://localhost:5000/lxc/config/debian1`
+
+### Set config keys
+
+syntax:
+```
+curl -X POST \
+http://localhost:5000/lxc/config/<CONTAINER> \
+-H "Content-Type:application/json" \
+-d '{
+  "<KEY>":"<VALUE>"
+}'
+```
+
+example:
+
+```
+curl -X POST \
+http://localhost:5000/lxc/config/debian1 \
+-H "Content-Type:application/json" \
+-d '{
+  "lxc.network":"veth"
 }'
 ```
 

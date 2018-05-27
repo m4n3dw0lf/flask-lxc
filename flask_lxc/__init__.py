@@ -60,17 +60,16 @@ def proxy(proto,dst,sport,dport):
 def expose(container):
   try:
     data = request.json
-    try:
-      dst = data["dst"]
-    except KeyError:
-      dst = data["destination"]
+    lxc_container = lxc.Container(container)
+    dst = str(lxc_container.get_ips()[0])
     proto= data["protocol"]
-    prt = data["port"]
-    t = threading.Thread(target=proxy,name="{}://{}:{}".format(proto,dst,prt),args=[
+    sport = data["sport"]
+    dport = data["dport"]
+    t = threading.Thread(target=proxy,name="{}://{}:{}".format(proto,container,dport),args=[
                                                                                      proto,
                                                                                      dst,
-                                                                                     prt,
-                                                                                     prt,
+                                                                                     sport,
+                                                                                     dport,
                                                                                    ]
                          )
     t.setDaemon(True)
@@ -149,6 +148,38 @@ def stop(container):
                 response=json.dumps({"error":"{}".format(e)}),
                 status=500,
                 mimetype='application/json' 
+               )
+  return response
+
+@lxc_api.route('/config/<container>',methods=["GET","POST"])
+def config(container):
+  try:
+    lxc_container = lxc.Container(container)
+    if request.method == "POST":
+      data = request.json
+      key = data["key"]
+      value = data["value"]
+      lxc_container.set_config_item(key,value)
+      jdata = {key:value}
+    else:
+      config = {}
+      for key in lxc_container.get_keys():
+        try:
+          value = str(lxc_container.get_config_item(key))
+          config[key] = value
+        except KeyError:
+          continue
+      jdata = config
+    response = Response(
+                response=json.dumps({key:value}),
+                status=200,
+                mimetype='application/json'
+               )
+  except Exception as e:
+    response = Response(
+                 response=json.dumps({"error":"{}".format(e)}),
+                 status=500,
+                 mimetype='application/json'
                )
   return response
 
