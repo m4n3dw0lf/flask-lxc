@@ -4,7 +4,7 @@
 
 ## Requirements
 
-#### Install LXC
+### Install LXC
 
 - Debian 9 (Jessie) Setup
 
@@ -27,7 +27,9 @@ sudo service lxc-net restart
 
 ## API
 
-#### Create new LXC Container
+### Create new LXC Container
+
+syntax:
 
 ```
 curl -X POST \
@@ -59,13 +61,17 @@ http://localhost:5000/lxc/create/debian1 \
 
 <br>
 
-#### List LXC Containers
+### List LXC Containers
+
+syntax:
 
 `curl http://localhost:5000/lxc/list`
 
 <br>
 
-#### Start LXC Container
+### Start LXC Container
+
+syntax:
 
 `curl http://localhost:5000/lxc/start/<CONTAINER_NAME>`
 
@@ -75,30 +81,33 @@ example:
 
 <br>
 
-#### Stop LXC Container
+### Stop LXC Container
+
+syntax:
 
 `curl http://localhost:5000/lxc/stop/<CONTAINER_NAME>`
 
-example
+example:
 
 `curl http://localhost:5000/lxc/stop/debian1`
 
 <br>
 
-#### Destroy LXC Container
+### Destroy LXC Container
+
+syntax:
 
 `curl http://localhost:5000/lxc/destroy/<CONTAINER_NAME>`
 
-example
+example:
 
 `curl http://localhost:5000/lxc/destroy/debian1`
 
 <br>
-<br>
 
-#### Expose ports of the container
+### Expose port of the container
 
-> Add the following rule to the iptables: `sudo iptables -t nat -A POSTROUTING -s 10.0.3.0/24 -o eth0 -j MASQUERADE`
+syntax:
 
 ```
 curl -X POST \
@@ -111,7 +120,7 @@ http://localhost:5000/lxc/expose/<CONTAINER_NAME> \
 }'
 ```
 
-example
+example:
 
 ```
 curl -X POST \
@@ -123,6 +132,8 @@ http://localhost:5000/lxc/expose/debian1 \
   "protocol":"tcp"
 }'
 ```
+
+<br><br>
 
 ## Reference
 
