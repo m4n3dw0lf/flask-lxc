@@ -23,6 +23,24 @@ EOF'
 sudo service lxc-net restart
 ```
 
+## Running locally
+
+```
+sudo pip install -r requirements.txt
+sudo python run.py
+```
+
+## Importing as blueprint on your flask app
+
+```
+from flask import Flask
+from flask_lxc import lxc_api
+
+# Can be your own app
+app = Flask(__name__)
+app.register_blueprint(lxc_api)
+```
+
 <br><br>
 
 ## API
