@@ -26,11 +26,20 @@ sudo service lxc-net restart
 ## Running locally
 
 ```
+git clone https://github.com/m4n3dw0lf/flask-lxc
 sudo pip install -r requirements.txt
 sudo python run.py
 ```
 
 ## Importing as blueprint on your flask app
+
+- install the package
+
+```
+pip install flask_lxc
+```
+
+- register the blueprint
 
 ```
 from flask import Flask
