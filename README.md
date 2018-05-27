@@ -59,6 +59,12 @@ http://localhost:5000/lxc/create/debian1 \
 
 <br>
 
+#### List LXC Containers
+
+`curl http://localhost:5000/lxc/list`
+
+<br>
+
 #### Start LXC Container
 
 `curl http://localhost:5000/lxc/start/<CONTAINER_NAME>`
@@ -89,6 +95,34 @@ example
 
 <br>
 <br>
+
+#### Expose ports of the container
+
+> Add the following rule to the iptables: `sudo iptables -t nat -A POSTROUTING -s 10.0.3.0/24 -o eth0 -j MASQUERADE`
+
+```
+curl -X POST \
+http://localhost:5000/lxc/expose/<CONTAINER_NAME> \
+-H "Content-Type:application/json" \
+-d '{
+  "dst":"<CONTAINER_IP>",
+  "port":"<PORT_TO_EXPOSE>",
+  "protocol":"<PROTOCOL>"
+}'
+```
+
+example
+
+```
+curl -X POST \
+http://localhost:5000/lxc/expose/debian1 \
+-H "Content-Type:application/json" \
+-d '{
+  "dst":"10.0.3.216",
+  "port":"80",
+  "protocol":"tcp"
+}'
+```
 
 ## Reference
 
