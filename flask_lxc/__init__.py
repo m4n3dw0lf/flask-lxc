@@ -42,6 +42,13 @@ def proxy(proto,dst,sport,dport):
           conn.send(res)
         conn.close()
         endpoint.close()
+    def udp_client(server,data,addr,dst,dport):
+       endpoint = socket.socket(2,2)
+       while True:
+         endpoint.sendto(data,(dst,dport))
+         d = endpoint.recvfrom(65535)
+         data = d[0]
+         server.sendto(data, addr)
     sport = int(sport)
     dport = int(dport)
     if proto == "tcp":
@@ -52,6 +59,17 @@ def proxy(proto,dst,sport,dport):
       while True:
         conn, addr = server.accept()
         t = threading.Thread(target=tcp_client,name="tcp-proxy-{}:{}".format(dst,dport),args=[conn,addr,dst,dport])
+        t.setDaemon(True)
+        t.start()
+    elif proto == "udp":
+      server = socket.socket(2,2)
+      server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+      server.bind(("0.0.0.0",sport))
+      while True:
+        d = server.recvfrom(65535)
+        data = d[0]
+        addr = d[1]
+        t = threading.Thread(target=udp_client,name="udp-proxy-{}:{}".format(dst,dport),args=[server,data,addr,dst,dport])
         t.setDaemon(True)
         t.start()
 
