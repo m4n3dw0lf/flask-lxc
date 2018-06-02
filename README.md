@@ -2,7 +2,7 @@
 
 <br>
 
-## Requirements
+## Installing locally
 
 ### Install LXC
 
@@ -29,6 +29,15 @@ sudo service lxc-net restart
 git clone https://github.com/m4n3dw0lf/flask-lxc
 sudo pip install -r requirements.txt
 sudo python run.py
+```
+
+## Running as docker container
+
+> Need to run as **root** user
+
+```
+docker pull m4n3dw0lf/flask_lxc
+docker run -it --net=host --rm --privileged --name test m4n3dw0lf/flask_lxc
 ```
 
 ## Importing as blueprint on your flask app
